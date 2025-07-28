@@ -3,7 +3,6 @@ import React from 'react';
 import StatsPage from './StatsPage';
 import QuestLogPage from './QuestLogPage';
 import GuildHistoryPage from './GuildHistoryPage';
-import TrainingPage from './TrainingPage';
 import SkillTreePage from './SkillTreePage';
 import AchievementPage from './AchievementPage';
 
@@ -16,8 +15,6 @@ const MainPanel = ({ selectedMenuItem, title, onClose, onDragStart }) => {
         return <QuestLogPage />;
       case 'guild':
         return <GuildHistoryPage />;
-      case 'training':
-        return <TrainingPage />;
       case 'skilltree':
         return <SkillTreePage />;
       case 'achievement':
@@ -34,14 +31,14 @@ const MainPanel = ({ selectedMenuItem, title, onClose, onDragStart }) => {
   };
 
   return (
-    <div className="w-full h-full max-w-2xl max-h-2xl pixel-window-frame">
+    <div className="w-[800px] h-[700px] pixel-window-frame">
        <div className="pixel-content-area flex flex-col">
           {/* Title bar */}
           <div 
             className="flex items-center justify-between p-4 border-b-2 border-[#a7b5ba] cursor-move"
             onMouseDown={onDragStart}
           >
-            <h2 className="text-base font-bold text-black select-none">{title}</h2>
+            <h2 className="text-lg font-bold text-black select-none">{title}</h2>
             <button
               onClick={onClose}
               className="w-6 h-6 border-2 border-black flex items-center justify-center text-black font-bold text-lg bg-[#cdd8dd] hover:bg-gray-400 cursor-pointer"
@@ -52,7 +49,7 @@ const MainPanel = ({ selectedMenuItem, title, onClose, onDragStart }) => {
             </button>
           </div>
           {/* Page content */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div className="flex-1 p-5 overflow-y-auto">
             {renderPage()}
           </div>
        </div>
