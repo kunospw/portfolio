@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Techx from '../assets/techx.jpg';
 import TemuAlumni from '../assets/TemuAlumni.png';
 import Magang from '../assets/Magang.png';
-import WeBageLiber from '../assets/weBageLiber.png';
+import WeBageLiber from '../assets/WeBageLiber.png';
 
 // Experience data
 const experiences = [

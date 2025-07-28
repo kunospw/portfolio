@@ -25,6 +25,13 @@ const achievements = [
     date: '2023',
     tier: 'Silver',
   },
+  {
+    id: 4,
+    title: 'ITB GIMJAM 2025',
+    description: 'Nominated Favorite Game for the game Raturu: Homefever.',
+    date: '2025',
+    tier: 'Gold',
+  },
 ];
 
 // A component for displaying a single achievement in a "gamedev" style
@@ -70,8 +77,8 @@ const AchievementPage = () => {
             <button
               onClick={goToPrevious}
               className={`px-3 py-1 border-2 rounded-lg text-xs ${
-                isNavigationEnabled 
-                  ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer' 
+                isNavigationEnabled
+                  ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer'
                   : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-50'
               }`}
               aria-label="Previous Achievement"
@@ -85,8 +92,8 @@ const AchievementPage = () => {
             <button
               onClick={goToNext}
               className={`px-3 py-1 border-2 rounded-lg text-xs ${
-                isNavigationEnabled 
-                  ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer' 
+                isNavigationEnabled
+                  ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer'
                   : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-50'
               }`}
               aria-label="Next Achievement"
