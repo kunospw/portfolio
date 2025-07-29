@@ -4,7 +4,8 @@ import GameMenu from '../components/GameMenu';
 import MainPanel from '../components/MainPanel';
 import SplashScreen from '../components/SplashScreen';
 import Taskbar from '../components/Taskbar';
-import MediaPlayer from '../components/MediaPlayer'; // Import MediaPlayer
+import MediaPlayer from '../components/MediaPlayer';
+import raccoonLogo from '../assets/raccoon.png'; // Add this import
 import {
   FiTrendingUp,
   FiBookOpen,
@@ -16,27 +17,81 @@ import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 // SummonMeNotification Component
 const SummonMeNotification = ({ onSummon, onClose }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [textPhase, setTextPhase] = useState(0);
+
+  const texts = [
+    "A wild Dee appears!",
+    "Dee wants to connect!",
+    "Will you answer the call?"
+  ];
+
+  useEffect(() => {
+    // Trigger slide-in animation
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    
+    // Cycle through different texts
+    const textTimer = setInterval(() => {
+      setTextPhase(prev => (prev + 1) % texts.length);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(textTimer);
+    };
+  }, []);
+
   return (
-    <div className="fixed bottom-20 right-4 w-64 pixel-window-frame z-50 animate-retro-pulse">
-      <div className="pixel-content-area p-2">
+    <div className={`fixed bottom-20 right-4 w-64 pixel-window-frame z-50 ${
+      isVisible ? 'animate-notification-slide animate-retro-pulse' : 'translate-x-full opacity-0'
+    }`}>
+      <div className="pixel-content-area p-2 scanlines">
         <div className="flex items-center justify-between pb-1 mb-1 border-b-2 border-[#a7b5ba]">
-          <h2 className="text-sm font-bold text-black select-none">A Wild Notification!</h2>
+          <h2 className="text-sm font-bold text-black select-none animate-text-glitch">
+            System Alert!
+          </h2>
           <button
             onClick={onClose}
-            className="w-4 h-4 border-2 border-black flex items-center justify-center text-black font-bold text-sm bg-[#cdd8dd] hover:bg-gray-400 cursor-pointer"
+            className="w-4 h-4 border-2 border-black flex items-center justify-center text-black font-bold text-sm bg-[#cdd8dd] hover:bg-gray-400 cursor-pointer pixel-button animate-icon-bounce"
             style={{ borderColor: '#a7b5ba #f7fafd #f7fafd #a7b5ba' }}
           >
             ×
           </button>
         </div>
         <div className="text-center">
-          <p className="text-xs mb-2">A wild Dee appears and wants to connect!</p>
+          <div className="mb-2 h-8 flex items-center justify-center">
+            <p className="text-xs animate-carousel-slide">
+              {texts[textPhase]}
+            </p>
+          </div>
+          <div className="mb-2">
+            <div className="w-12 h-12 mx-auto animate-icon-bounce">
+              <img 
+                src={raccoonLogo} 
+                alt="Raccoon" 
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
           <button
             onClick={onSummon}
-            className="px-3 py-1 bg-green-500 border-2 border-b-4 border-green-700 rounded-lg text-white text-xs hover:bg-green-400 active:border-b-2"
+            className="px-3 py-1 bg-green-500 border-2 border-b-4 border-green-700 rounded-lg text-white text-xs hover:bg-green-400 active:border-b-2 pixel-button animate-achievement-unlock font-bold"
+            style={{ animationDelay: '0.5s' }}
           >
             Summon me!
           </button>
+          <div className="mt-2">
+            <div className="flex justify-center space-x-1">
+              {[0, 1, 2].map(i => (
+                <div
+                  key={i}
+                  className={`w-1 h-1 rounded-full transition-all duration-300 ${
+                    i === textPhase ? 'bg-blue-500 animate-retro-pulse' : 'bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -188,12 +243,19 @@ export default function GameMenuSystem() {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isNotificationVisible, setNotificationVisible] = useState(false);
   const [isContactFormVisible, setContactFormVisible] = useState(false);
+  const [iconsLoaded, setIconsLoaded] = useState(false); // ADD THIS MISSING STATE
 
   const handleGameStart = () => {
     setGameStarted(true);
     setIsMenuOpen(true);
     setIsMainPanelOpen(true);
   };
+
+  // ADD THIS MISSING USEEFFECT FOR ICON LOADING
+  useEffect(() => {
+    const timer = setTimeout(() => setIconsLoaded(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -313,43 +375,79 @@ export default function GameMenuSystem() {
 
   const isDesktopIconClickable = !appLaunched || (gameStarted && !isMenuOpen && !isMainPanelOpen);
 
-  // Desktop icons
+  // UPDATED DESKTOP ICONS WITH PROPER ANIMATION CONTROL
   const DesktopIcons = () => (
     <div className="fixed bottom-16 left-4 z-10 flex flex-col-reverse space-y-4 space-y-reverse">
+      {/* Dee's World Icon */}
       <div
-        className={`flex flex-col items-center group ${
+        className={`flex flex-col items-center group desktop-icon ${
           isDesktopIconClickable ? 'cursor-pointer' : 'cursor-default opacity-70'
-        }`}
+        } ${iconsLoaded ? 'animate-pixel-fade-in' : 'opacity-0'}`}
         onDoubleClick={isDesktopIconClickable ? handleAppLaunch : undefined}
+        style={{ animationDelay: '0.2s' }}
       >
-        <div className="w-16 h-16 bg-[#c0c0c0] border-2 border-[#ffffff] flex items-center justify-center text-4xl mb-2" style={{ borderColor: '#ffffff #808080 #808080 #ffffff' }}>
-          🦝
+        <div className={`w-16 h-16 bg-[#c0c0c0] border-2 border-[#ffffff] flex items-center justify-center mb-2 p-2 pixel-button transition-all duration-300 ${
+          isDesktopIconClickable ? 'group-hover:animate-icon-bounce group-hover:bg-blue-100' : ''
+        }`} style={{ borderColor: '#ffffff #808080 #808080 #ffffff' }}>
+          <img 
+            src={raccoonLogo} 
+            alt="Dee's World" 
+            className="w-full h-full object-contain animate-retro-pulse"
+          />
         </div>
-        <span className={`text-sm text-black bg-[#c0c0c0] px-1 ${
-          isDesktopIconClickable ? 'group-hover:bg-blue-500 group-hover:text-white' : ''
+        <span className={`text-sm text-black bg-[#c0c0c0] px-1 transition-all duration-200 ${
+          isDesktopIconClickable ? 'group-hover:bg-blue-500 group-hover:text-white group-hover:animate-text-glitch' : ''
         }`} style={{ fontFamily: "'Press Start 2P', monospace" }}>
           Dee's World
         </span>
       </div>
+
+      {/* Media Player Icon */}
       <div
-        className="flex flex-col items-center group cursor-pointer"
+        className={`flex flex-col items-center group desktop-icon cursor-pointer ${
+          iconsLoaded ? 'animate-pixel-fade-in' : 'opacity-0'
+        }`}
         onDoubleClick={handleMediaPlayerLaunch}
+        style={{ animationDelay: '0.4s' }}
       >
-        <div className="w-16 h-16 bg-[#c0c0c0] border-2 border-[#ffffff] flex items-center justify-center text-4xl mb-2" style={{ borderColor: '#ffffff #808080 #808080 #ffffff' }}>
-          🎵
+        <div className="w-16 h-16 bg-[#c0c0c0] border-2 border-[#ffffff] flex items-center justify-center text-4xl mb-2 pixel-button group-hover:animate-icon-bounce group-hover:bg-purple-100 transition-all duration-300" 
+             style={{ borderColor: '#ffffff #808080 #808080 #ffffff' }}>
+          <span className="animate-retro-pulse" style={{ animationDelay: '0.5s' }}>🎵</span>
         </div>
-        <span className="text-sm text-black bg-[#c0c0c0] px-1 group-hover:bg-blue-500 group-hover:text-white" style={{ fontFamily: "'Press Start 2P', monospace" }}>
+        <span className="text-sm text-black bg-[#c0c0c0] px-1 group-hover:bg-blue-500 group-hover:text-white group-hover:animate-text-glitch transition-all duration-200" 
+              style={{ fontFamily: "'Press Start 2P', monospace" }}>
           Media Player
         </span>
       </div>
-      <a href="/Dyah_Puspo_Rini_CV.pdf" download="DyahPuspoRini_CV.pdf" className="flex flex-col items-center group cursor-pointer">
-        <div className="w-16 h-16 bg-[#c0c0c0] border-2 border-[#ffffff] flex items-center justify-center text-4xl mb-2" style={{ borderColor: '#ffffff #808080 #808080 #ffffff' }}>
-          📁
+
+      {/* CV Download Icon */}
+      <a 
+        href="/Dyah_Puspo_Rini_CV.pdf" 
+        download="DyahPuspoRini_CV.pdf" 
+        className={`flex flex-col items-center group desktop-icon cursor-pointer ${
+          iconsLoaded ? 'animate-pixel-fade-in' : 'opacity-0'
+        }`}
+        style={{ animationDelay: '0.6s' }}
+      >
+        <div className="w-16 h-16 bg-[#c0c0c0] border-2 border-[#ffffff] flex items-center justify-center text-4xl mb-2 pixel-button group-hover:animate-icon-bounce group-hover:bg-yellow-100 transition-all duration-300" 
+             style={{ borderColor: '#ffffff #808080 #808080 #ffffff' }}>
+          <span className="animate-retro-pulse" style={{ animationDelay: '1s' }}>📁</span>
         </div>
-        <span className="text-sm text-black bg-[#c0c0c0] px-1 group-hover:bg-blue-500 group-hover:text-white" style={{ fontFamily: "'Press Start 2P', monospace" }}>
+        <span className="text-sm text-black bg-[#c0c0c0] px-1 group-hover:bg-blue-500 group-hover:text-white group-hover:animate-text-glitch transition-all duration-200" 
+              style={{ fontFamily: "'Press Start 2P', monospace" }}>
           Dee's CV
         </span>
       </a>
+
+      {/* Loading indicator when icons are loading */}
+      {!iconsLoaded && (
+        <div className="flex items-center justify-center">
+          <div className="pixel-spinner"></div>
+          <span className="text-xs ml-2 animate-cursor-blink" style={{ fontFamily: "'Press Start 2P', monospace" }}>
+            Loading...
+          </span>
+        </div>
+      )}
     </div>
   );
 
