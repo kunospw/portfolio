@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FaClipboardList, FaBolt, FaTrophy } from 'react-icons/fa';
+import { FaClipboardList, FaBolt, FaTrophy, FaGraduationCap, FaCode, FaGamepad, FaCrown } from 'react-icons/fa';
 import portraitImage from '../assets/potrait.png';
 
-const StatsPage = () => {
+const StatsPage = ({ onSummon }) => {
   const [displayName, setDisplayName] = useState('');
   const [nameIndex, setNameIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -109,6 +109,49 @@ const StatsPage = () => {
               <span className="hover:text-pink-500 transition-colors">CRE ▷ 10</span>
             </div>
           </div>
+
+          {/* NEW: Additional Info Cards */}
+          <div className={`mt-4 grid grid-cols-2 gap-2 ${statsVisible ? 'animate-pixel-fade-in' : 'opacity-0'}`} style={{ animationDelay: '1.5s' }}>
+            <div className="bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] p-2 rounded pixel-button group hover:animate-skill-hover">
+              <div className="flex items-center space-x-1">
+                <FaGraduationCap className="text-blue-600 animate-icon-bounce" style={{ animationDelay: '2s' }} />
+                <div>
+                  <div className="font-bold text-xs group-hover:animate-text-glitch">Education</div>
+                  <div className="text-xs">Informatics</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] p-2 rounded pixel-button group hover:animate-skill-hover">
+              <div className="flex items-center space-x-1">
+                <FaCode className="text-green-600 animate-icon-bounce" style={{ animationDelay: '2.2s' }} />
+                <div>
+                  <div className="font-bold text-xs group-hover:animate-text-glitch">Focus</div>
+                  <div className="text-xs">Web Dev</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] p-2 rounded pixel-button group hover:animate-skill-hover">
+              <div className="flex items-center space-x-1">
+                <FaGamepad className="text-purple-600 animate-icon-bounce" style={{ animationDelay: '2.4s' }} />
+                <div>
+                  <div className="font-bold text-xs group-hover:animate-text-glitch">Hobby</div>
+                  <div className="text-xs">Game Dev</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] p-2 rounded pixel-button group hover:animate-skill-hover">
+              <div className="flex items-center space-x-1">
+                <span className="text-yellow-600 text-sm animate-retro-pulse" style={{ animationDelay: '2.6s' }}>🦝</span>
+                <div>
+                  <div className="font-bold text-xs group-hover:animate-text-glitch">Spirit Animal</div>
+                  <div className="text-xs">Raccoon</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -117,6 +160,27 @@ const StatsPage = () => {
         <p className="leading-relaxed hover:animate-text-glitch transition-all duration-300">
           Informatics student passionate about game and web development, aspiring to become a jack-of-all-trades, blending creativity and logic like a witchcraft spell. Staying authentic above all else, with a soft spot for cowboys and raccoons.
         </p>
+      </div>
+
+      {/* NEW: Character Buffs/Status Effects */}
+      <div className={`mt-4 pt-3 border-t-2 border-black ${statsVisible ? 'animate-pixel-fade-in' : 'opacity-0'}`} style={{ animationDelay: '2.8s' }}>
+        <h4 className="text-sm font-bold mb-2 text-black flex items-center animate-achievement-unlock" style={{ animationDelay: '3s' }}>
+          ACTIVE BUFFS
+        </h4>
+        <div className="flex flex-wrap gap-2">
+          <div className="bg-blue-500 border-2 border-blue-700 px-2 py-1 rounded text-white text-xs animate-retro-pulse" style={{ animationDelay: '3.2s' }}>
+            ✨ Creative Focus +10
+          </div>
+          <div className="bg-green-500 border-2 border-green-700 px-2 py-1 rounded text-white text-xs animate-retro-pulse" style={{ animationDelay: '3.4s' }}>
+            🚀 Learning Boost +15
+          </div>
+          <div className="bg-purple-500 border-2 border-purple-700 px-2 py-1 rounded text-white text-xs animate-retro-pulse" style={{ animationDelay: '3.6s' }}>
+            🎯 Goal Oriented +12
+          </div>
+          <div className="bg-yellow-500 border-2 border-yellow-700 px-2 py-1 rounded text-white text-xs animate-retro-pulse" style={{ animationDelay: '3.8s' }}>
+            🦝 Mischief Mode +20
+          </div>
+        </div>
       </div>
 
       {/* Bottom section: Current Quest with staggered animations */}
@@ -165,6 +229,39 @@ const StatsPage = () => {
                 </span>
               </div>
             </div>
+          </div>
+        </div>
+        
+        {/* NEW: Take the Bounty Button */}
+        <div className={`mt-6 pt-4 border-t-2 border-dashed border-gray-400 text-center ${statsVisible ? 'animate-pixel-fade-in' : 'opacity-0'}`} style={{ animationDelay: '4.2s' }}>
+          <div className="mb-3">
+            <div className="text-xs text-gray-600 mb-1 animate-text-glitch" style={{ animationDelay: '4.5s' }}>
+              💰 BOUNTY AVAILABLE 💰
+            </div>
+            <div className="text-xs font-bold animate-carousel-slide" style={{ animationDelay: '4.7s' }}>
+              Looking for a skilled adventurer to join your guild?
+            </div>
+          </div>
+          <button
+            onClick={onSummon}
+            className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 border-4 border-yellow-700 rounded-lg text-white font-bold text-sm hover:from-yellow-400 hover:to-orange-400 hover:scale-105 active:scale-95 transform transition-all duration-200 pixel-button animate-achievement-unlock shadow-lg group"
+            style={{ 
+              animationDelay: '5s',
+              borderColor: '#b45309 #fbbf24 #fbbf24 #b45309',
+              textShadow: '2px 2px 0px rgba(0,0,0,0.5)'
+            }}
+          >
+            <div className="flex items-center space-x-2">
+              <FaCrown className="animate-icon-bounce group-hover:animate-retro-pulse" />
+              <span className="group-hover:animate-text-glitch">TAKE THE BOUNTY</span>
+              <FaCrown className="animate-icon-bounce group-hover:animate-retro-pulse" />
+            </div>
+            <div className="text-xs mt-1 opacity-90">
+              Recruit Dee for your next quest!
+            </div>
+          </button>
+          <div className="mt-2 text-xs text-gray-500 animate-cursor-blink" style={{ animationDelay: '5.5s' }}>
+            Reward: Quality code & creative solutions
           </div>
         </div>
       </div>

@@ -152,7 +152,7 @@ const ContactForm = ({ onClose }) => {
       <div className="relative w-96 pixel-window-frame">
         <div className="pixel-content-area p-4">
           <div className="flex items-center justify-between pb-2 mb-2 border-b-2 border-[#a7b5ba]">
-            <h2 className="text-lg font-bold text-black select-none">Summon Me</h2>
+            <h2 className="text-lg font-bold text-black select-none">Hire Me / Post a Bounty</h2>
             <button
               onClick={onClose}
               className="w-6 h-6 border-2 border-black flex items-center justify-center text-black font-bold text-lg bg-[#cdd8dd] hover:bg-gray-400 cursor-pointer"
@@ -486,6 +486,7 @@ export default function GameMenuSystem() {
                     title={selectedTitle}
                     onClose={() => setIsMainPanelOpen(false)}
                     onDragStart={(e) => handleMouseDown(e, 'panel')}
+                    onSummon={() => setContactFormVisible(true)}
                   />
                 </div>
               )}

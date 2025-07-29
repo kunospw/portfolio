@@ -6,11 +6,11 @@ import GuildHistoryPage from './GuildHistoryPage';
 import SkillTreePage from './SkillTreePage';
 import AchievementPage from './AchievementPage';
 
-const MainPanel = ({ selectedMenuItem, title, onClose, onDragStart }) => {
+const MainPanel = ({ selectedMenuItem, title, onClose, onDragStart, onSummon }) => {
   const renderPage = () => {
     switch (selectedMenuItem) {
       case 'stats':
-        return <StatsPage />;
+        return <StatsPage onSummon={onSummon} />;
       case 'questlog':
         return <QuestLogPage />;
       case 'guild':

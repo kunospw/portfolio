@@ -5,31 +5,31 @@ import { Trophy, Medal } from 'lucide-react';
 const achievements = [
   {
     id: 1,
-    title: 'TOEIC Mastery',
-    description: 'Achieved a score of 865, demonstrating advanced English proficiency.',
-    date: '2023',
+    title: 'ITB GIMJAM 2025',
+    description: 'Nominated Favorite Game for the game Raturu: Homefever.',
+    date: '2025',
     tier: 'Gold',
   },
   {
     id: 2,
+    title: 'TOEIC Mastery',
+    description: 'Achieved a score of 865.',
+    date: '2023',
+    tier: 'Gold',
+  },
+  {
+    id: 3,
     title: 'Duolingo English Proficiency',
     description: 'Certified with a score of 120.',
     date: '2023',
     tier: 'Gold',
   },
   {
-    id: 3,
+    id: 4,
     title: 'TOEIC Preparation',
     description: 'Completed a 20-hour preparation course with WELTS.',
     date: '2023',
     tier: 'Silver',
-  },
-  {
-    id: 4,
-    title: 'ITB GIMJAM 2025',
-    description: 'Nominated Favorite Game for the game Raturu: Homefever.',
-    date: '2025',
-    tier: 'Gold',
   },
 ];
 
