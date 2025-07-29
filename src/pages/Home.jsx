@@ -179,22 +179,26 @@ export default function GameMenuSystem() {
   const [gameStarted, setGameStarted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMainPanelOpen, setIsMainPanelOpen] = useState(false);
-  const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false); // State for media player
+  const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState('stats');
   const [menuPosition, setMenuPosition] = useState({ x: -400, y: -350 });
   const [mainPanelPosition, setMainPanelPosition] = useState({ x: -100, y: -350 });
-  const [mediaPlayerPosition, setMediaPlayerPosition] = useState({ x: 200, y: -100 }); // Position for media player
+  const [mediaPlayerPosition, setMediaPlayerPosition] = useState({ x: 200, y: -100 });
   const [isDragging, setIsDragging] = useState({ menu: false, panel: false, mediaPlayer: false });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isNotificationVisible, setNotificationVisible] = useState(false);
   const [isContactFormVisible, setContactFormVisible] = useState(false);
 
+  const handleGameStart = () => {
+    setGameStarted(true);
+    setIsMenuOpen(true);
+    setIsMainPanelOpen(true);
+  };
+
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.code === 'Space' && appLaunched && !gameStarted) {
-        setGameStarted(true);
-        setIsMenuOpen(true);
-        setIsMainPanelOpen(true);
+        handleGameStart();
       }
     };
 
@@ -206,15 +210,14 @@ export default function GameMenuSystem() {
   }, [appLaunched, gameStarted]);
 
   useEffect(() => {
-        const timer = setTimeout(() => {
-            if(!isNotificationVisible) {
-                setNotificationVisible(true);
-            }
-        }, 3000);
+    const timer = setTimeout(() => {
+      if(!isNotificationVisible) {
+        setNotificationVisible(true);
+      }
+    }, 3000);
 
-        return () => clearTimeout(timer);
-    }, [isNotificationVisible]);
-
+    return () => clearTimeout(timer);
+  }, [isNotificationVisible]);
 
   const menuItems = [
     { name: 'Stats', id: 'stats', icon: <FiTrendingUp /> },
@@ -242,7 +245,7 @@ export default function GameMenuSystem() {
 
   const handleMediaPlayerLaunch = () => {
     setIsMediaPlayerOpen(true);
-  }
+  };
 
   const handleAppClose = () => {
     setAppLaunched(false);
@@ -264,8 +267,8 @@ export default function GameMenuSystem() {
   // Mouse move handler
   useEffect(() => {
     const handleMouseMove = (e) => {
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
       if (isDragging.menu) {
         setMenuPosition({
           x: e.clientX - centerX - dragOffset.x,
@@ -280,8 +283,8 @@ export default function GameMenuSystem() {
       }
       if (isDragging.mediaPlayer) {
         setMediaPlayerPosition({
-            x: e.clientX - centerX - dragOffset.x,
-            y: e.clientY - centerY - dragOffset.y
+          x: e.clientX - centerX - dragOffset.x,
+          y: e.clientY - centerY - dragOffset.y
         });
       }
     };
@@ -304,9 +307,9 @@ export default function GameMenuSystem() {
   const selectedTitle = menuItems.find(item => item.id === selectedMenuItem)?.name || 'Menu';
 
   const handleNotificationClose = () => {
-        setNotificationVisible(false);
-        setTimeout(() => setNotificationVisible(true), 5000);
-    };
+    setNotificationVisible(false);
+    setTimeout(() => setNotificationVisible(true), 5000);
+  };
 
   const isDesktopIconClickable = !appLaunched || (gameStarted && !isMenuOpen && !isMainPanelOpen);
 
@@ -339,7 +342,7 @@ export default function GameMenuSystem() {
           Media Player
         </span>
       </div>
-       <a href="/Dyah_Puspo_Rini_CV.pdf" download="DyahPuspoRini_CV.pdf" className="flex flex-col items-center group cursor-pointer">
+      <a href="/Dyah_Puspo_Rini_CV.pdf" download="DyahPuspoRini_CV.pdf" className="flex flex-col items-center group cursor-pointer">
         <div className="w-16 h-16 bg-[#c0c0c0] border-2 border-[#ffffff] flex items-center justify-center text-4xl mb-2" style={{ borderColor: '#ffffff #808080 #808080 #ffffff' }}>
           📁
         </div>
@@ -350,7 +353,6 @@ export default function GameMenuSystem() {
     </div>
   );
 
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4 pb-16" style={{ fontFamily: "'Press Start 2P', monospace" }}>
       <DesktopIcons />
@@ -358,7 +360,7 @@ export default function GameMenuSystem() {
       {appLaunched && (
         <>
           {!gameStarted ? (
-            <SplashScreen />
+            <SplashScreen onStart={handleGameStart} />
           ) : (
             <div className="relative w-0 h-0">
               {isMenuOpen && (
@@ -395,20 +397,19 @@ export default function GameMenuSystem() {
       )}
 
       {isMediaPlayerOpen && (
-          <div
-            className="absolute"
-            style={{ transform: `translate(${mediaPlayerPosition.x}px, ${mediaPlayerPosition.y}px)` }}
-          >
-              <MediaPlayer
-                onClose={() => setIsMediaPlayerOpen(false)}
-                onDragStart={(e) => handleMouseDown(e, 'mediaPlayer')}
-              />
-          </div>
+        <div
+          className="absolute"
+          style={{ transform: `translate(${mediaPlayerPosition.x}px, ${mediaPlayerPosition.y}px)` }}
+        >
+          <MediaPlayer
+            onClose={() => setIsMediaPlayerOpen(false)}
+            onDragStart={(e) => handleMouseDown(e, 'mediaPlayer')}
+          />
+        </div>
       )}
 
       {isNotificationVisible && <SummonMeNotification onSummon={() => setContactFormVisible(true)} onClose={handleNotificationClose} />}
       {isContactFormVisible && <ContactForm onClose={() => setContactFormVisible(false)} />}
-
 
       <Taskbar
         appLaunched={appLaunched}
