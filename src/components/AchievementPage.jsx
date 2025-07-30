@@ -12,23 +12,23 @@ const achievements = [
   },
   {
     id: 2,
-    title: 'TOEIC Mastery',
-    description: 'Achieved a score of 865.',
-    date: '2023',
-    tier: 'Gold',
-  },
-  {
-    id: 3,
     title: 'Duolingo English Proficiency',
     description: 'Certified with a score of 120.',
     date: '2023',
     tier: 'Gold',
   },
   {
+    id: 3,
+    title: 'TOEIC Mastery',
+    description: 'Achieved a score of 865.',
+    date: '2022',
+    tier: 'Gold',
+  },
+  {
     id: 4,
     title: 'TOEIC Preparation',
     description: 'Completed a 20-hour preparation course with WELTS.',
-    date: '2023',
+    date: '2022',
     tier: 'Silver',
   },
 ];
@@ -45,23 +45,20 @@ const AchievementCard = ({ title, description, date, tier, isNew = false }) => {
   }, [isNew]);
 
   return (
-    <div className={`bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] p-2 rounded-lg mb-3 flex items-center shadow-sm pixel-button group ${
-      isNew && !isUnlocked ? 'animate-achievement-unlock' : 'animate-pixel-fade-in'
-    }`}>
-      <div className={`w-12 h-12 mr-3 flex items-center justify-center rounded-md border-2 text-white font-bold transition-all duration-300 ${
-        tier === 'Gold' 
-          ? 'bg-yellow-500 border-yellow-700 group-hover:bg-yellow-400 group-hover:shadow-lg group-hover:shadow-yellow-300' 
-          : 'bg-gray-500 border-gray-700 group-hover:bg-gray-400 group-hover:shadow-lg group-hover:shadow-gray-300'
-      } ${isUnlocked ? 'animate-icon-bounce' : ''}`}>
-        {tier === 'Gold' ? 
-          <Trophy size={24} className="animate-skill-hover" /> : 
+    <div className={`bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] p-2 rounded-lg mb-3 flex items-center shadow-sm pixel-button group ${isNew && !isUnlocked ? 'animate-achievement-unlock' : 'animate-pixel-fade-in'
+      }`}>
+      <div className={`w-12 h-12 mr-3 flex items-center justify-center rounded-md border-2 text-white font-bold transition-all duration-300 ${tier === 'Gold'
+        ? 'bg-yellow-500 border-yellow-700 group-hover:bg-yellow-400 group-hover:shadow-lg group-hover:shadow-yellow-300'
+        : 'bg-gray-500 border-gray-700 group-hover:bg-gray-400 group-hover:shadow-lg group-hover:shadow-gray-300'
+        } ${isUnlocked ? 'animate-icon-bounce' : ''}`}>
+        {tier === 'Gold' ?
+          <Trophy size={24} className="animate-skill-hover" /> :
           <Medal size={24} className="animate-skill-hover" />
         }
       </div>
       <div className="flex-grow">
-        <h4 className={`font-bold text-black text-xs uppercase group-hover:animate-text-glitch ${
-          tier === 'Gold' ? 'text-yellow-700' : 'text-gray-700'
-        }`}>
+        <h4 className={`font-bold text-black text-xs uppercase group-hover:animate-text-glitch ${tier === 'Gold' ? 'text-yellow-700' : 'text-gray-700'
+          }`}>
           {title}
         </h4>
         <p className="text-xs text-black mt-1 group-hover:text-gray-700 transition-colors">
@@ -122,11 +119,10 @@ const AchievementPage = () => {
           <div className="flex justify-between items-center mb-3">
             <button
               onClick={goToPrevious}
-              className={`px-3 py-1 border-2 rounded-lg text-xs pixel-button transition-all duration-200 ${
-                isNavigationEnabled && !isTransitioning
-                  ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer animate-icon-bounce'
-                  : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-50'
-              }`}
+              className={`px-3 py-1 border-2 rounded-lg text-xs pixel-button transition-all duration-200 ${isNavigationEnabled && !isTransitioning
+                ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer animate-icon-bounce'
+                : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-50'
+                }`}
               aria-label="Previous Achievement"
               disabled={!isNavigationEnabled || isTransitioning}
             >
@@ -137,11 +133,10 @@ const AchievementPage = () => {
             </h3>
             <button
               onClick={goToNext}
-              className={`px-3 py-1 border-2 rounded-lg text-xs pixel-button transition-all duration-200 ${
-                isNavigationEnabled && !isTransitioning
-                  ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer animate-icon-bounce'
-                  : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-50'
-              }`}
+              className={`px-3 py-1 border-2 rounded-lg text-xs pixel-button transition-all duration-200 ${isNavigationEnabled && !isTransitioning
+                ? 'bg-gray-300 border-gray-500 border-b-4 text-gray-800 hover:bg-gray-200 active:border-b-2 cursor-pointer animate-icon-bounce'
+                : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-50'
+                }`}
               aria-label="Next Achievement"
               disabled={!isNavigationEnabled || isTransitioning}
               style={{ animationDelay: '0.2s' }}
@@ -162,8 +157,8 @@ const AchievementPage = () => {
                   {/* Achievement stats */}
                   <div className="mt-2 text-xs">
                     <span className="inline-block w-16 h-1 bg-gray-300 border border-gray-500 mr-2 align-middle">
-                      <span 
-                        className="block h-full bg-blue-500 animate-progress-load" 
+                      <span
+                        className="block h-full bg-blue-500 animate-progress-load"
                         style={{ width: `${((currentAchievementIndex + 1) / achievements.length) * 100}%` }}
                       ></span>
                     </span>
@@ -175,7 +170,7 @@ const AchievementPage = () => {
               // Enhanced display for all achievements with staggered animations
               <div>
                 {achievements.map((achievement, index) => (
-                  <div 
+                  <div
                     key={achievement.id}
                     className="animate-carousel-slide"
                     style={{ animationDelay: `${index * 0.1}s` }}
@@ -188,7 +183,7 @@ const AchievementPage = () => {
                   <div className="text-xs">
                     <div className="font-bold animate-text-glitch">Achievement Summary</div>
                     <div className="mt-1">
-                      Gold: {achievements.filter(a => a.tier === 'Gold').length} • 
+                      Gold: {achievements.filter(a => a.tier === 'Gold').length} •
                       Silver: {achievements.filter(a => a.tier === 'Silver').length}
                     </div>
                     <div className="mt-1">
