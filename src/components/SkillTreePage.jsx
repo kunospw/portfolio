@@ -33,20 +33,18 @@ const SkillNode = ({ name, isCore, level, index, branchIndex }) => {
   };
 
   return (
-    <div 
-      className={`relative flex items-center justify-center w-24 h-16 m-2 rounded-md shadow-sm cursor-pointer transition-all duration-300 text-black font-bold group ${
-        isCore 
-          ? 'bg-[#cdd8dd] border-2 border-t-[#a7b5ba] border-l-[#a7b5ba] border-r-[#f7fafd] border-b-[#f7fafd]' 
-          : 'bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba]'
-      } ${isUnlocked ? 'animate-achievement-unlock' : 'opacity-0'} ${isHovered ? 'animate-skill-hover' : ''}`}
+    <div
+      className={`relative flex items-center justify-center w-24 h-16 m-2 rounded-md shadow-sm cursor-pointer transition-all duration-300 text-black font-bold group ${isCore
+        ? 'bg-[#cdd8dd] border-2 border-t-[#a7b5ba] border-l-[#a7b5ba] border-r-[#f7fafd] border-b-[#f7fafd]'
+        : 'bg-[#cdd8dd] border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba]'
+        } ${isUnlocked ? 'animate-achievement-unlock' : 'opacity-0'} ${isHovered ? 'animate-skill-hover' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{ animationDelay: `${(branchIndex * 0.2) + (index * 0.15)}s` }}
     >
       <div className="text-center p-1 relative z-10">
-        <h4 className={`text-xs transition-all duration-300 ${
-          isHovered ? 'animate-text-glitch' : ''
-        }`}>
+        <h4 className={`text-xs transition-all duration-300 ${isHovered ? 'animate-text-glitch' : ''
+          }`}>
           {isHovered ? level : name}
         </h4>
         {isHovered && (
@@ -55,7 +53,7 @@ const SkillNode = ({ name, isCore, level, index, branchIndex }) => {
           </div>
         )}
       </div>
-      
+
       {/* Skill level indicator with enhanced styling */}
       {!isHovered && (
         <div className={`absolute top-1 right-1 w-3 h-3 rounded-full flex items-center justify-center text-xs animate-retro-pulse ${getLevelColor(level)}`}>
@@ -66,12 +64,11 @@ const SkillNode = ({ name, isCore, level, index, branchIndex }) => {
       )}
 
       {/* Glow effect on hover */}
-      <div className={`absolute inset-0 rounded-md transition-opacity duration-300 pointer-events-none ${
-        level === 'Expert' ? 'bg-yellow-400' :
+      <div className={`absolute inset-0 rounded-md transition-opacity duration-300 pointer-events-none ${level === 'Expert' ? 'bg-yellow-400' :
         level === 'Advanced' ? 'bg-blue-400' :
-        level === 'Intermediate' ? 'bg-green-400' :
-        'bg-gray-400'
-      } ${isHovered ? 'opacity-20' : 'opacity-0'}`}></div>
+          level === 'Intermediate' ? 'bg-green-400' :
+            'bg-gray-400'
+        } ${isHovered ? 'opacity-20' : 'opacity-0'}`}></div>
 
       {/* Connection lines enhancement */}
       {isCore && (
@@ -106,9 +103,8 @@ const SkillBranch = ({ title, skills, branchIndex }) => {
   };
 
   return (
-    <div className={`flex flex-col items-center mb-4 p-2 bg-[#cdd8dd] rounded-lg border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] group ${
-      branchVisible ? 'animate-window-open' : 'opacity-0'
-    }`}>
+    <div className={`flex flex-col items-center mb-4 p-2 bg-[#cdd8dd] rounded-lg border-2 border-t-[#f7fafd] border-l-[#f7fafd] border-r-[#a7b5ba] border-b-[#a7b5ba] group ${branchVisible ? 'animate-window-open' : 'opacity-0'
+      }`}>
       {/* Enhanced branch header */}
       <div className="text-center mb-3 group-hover:animate-text-glitch">
         <div className="text-lg animate-icon-bounce" style={{ animationDelay: `${branchIndex * 0.5}s` }}>
@@ -143,9 +139,9 @@ const SkillBranch = ({ title, skills, branchIndex }) => {
       <div className="mt-2 text-center animate-pixel-fade-in" style={{ animationDelay: `${(branchIndex + 1) * 0.8}s` }}>
         <div className="text-xs">
           <span className="inline-block w-16 h-1 bg-gray-300 border border-gray-500 mr-1 align-middle">
-            <span 
-              className="block h-full bg-blue-500 animate-progress-load" 
-              style={{ 
+            <span
+              className="block h-full bg-blue-500 animate-progress-load"
+              style={{
                 width: `${(skills.filter(s => s.level !== 'Beginner').length / skills.length) * 100}%`,
                 animationDelay: `${(branchIndex + 2) * 0.5}s`
               }}
@@ -201,6 +197,7 @@ const SkillTreePage = () => {
         { name: 'SQLite', level: 'Intermediate' },
         { name: 'Firebase', level: 'Beginner' },
         { name: 'REST API', level: 'Intermediate' },
+        { name: 'AWS', level: 'Beginner' },
       ],
     },
     software: {
@@ -220,7 +217,7 @@ const SkillTreePage = () => {
 
   const getTotalXP = () => {
     const xpValues = { Expert: 300, Advanced: 200, Intermediate: 100, Beginner: 50 };
-    return Object.values(skillPaths).reduce((total, path) => 
+    return Object.values(skillPaths).reduce((total, path) =>
       total + path.skills.reduce((pathTotal, skill) => pathTotal + (xpValues[skill.level] || 0), 0), 0
     );
   };
@@ -246,24 +243,24 @@ const SkillTreePage = () => {
 
       {/* Enhanced Skill Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <SkillBranch 
-          title={skillPaths.web.title} 
-          skills={skillPaths.web.skills} 
+        <SkillBranch
+          title={skillPaths.web.title}
+          skills={skillPaths.web.skills}
           branchIndex={0}
         />
-        <SkillBranch 
-          title={skillPaths.game.title} 
-          skills={skillPaths.game.skills} 
+        <SkillBranch
+          title={skillPaths.game.title}
+          skills={skillPaths.game.skills}
           branchIndex={1}
         />
-        <SkillBranch 
-          title={skillPaths.backend.title} 
-          skills={skillPaths.backend.skills} 
+        <SkillBranch
+          title={skillPaths.backend.title}
+          skills={skillPaths.backend.skills}
           branchIndex={2}
         />
-        <SkillBranch 
-          title={skillPaths.software.title} 
-          skills={skillPaths.software.skills} 
+        <SkillBranch
+          title={skillPaths.software.title}
+          skills={skillPaths.software.skills}
           branchIndex={3}
         />
       </div>
